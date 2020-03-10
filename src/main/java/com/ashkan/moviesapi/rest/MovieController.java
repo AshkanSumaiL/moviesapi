@@ -21,9 +21,11 @@ public class MovieController {
 
     private MovieService movieService;
     private UserService userService;
+
     @Autowired
-    public MovieController(MovieService movieService) {
+    public MovieController(MovieService movieService,UserService userService) {
         this.movieService = movieService;
+        this.userService = userService;
     }
 
     @GetMapping("/movies")
@@ -31,26 +33,13 @@ public class MovieController {
         return movieService.findAll();
     }
 
-    @GetMapping("/movie/{Id}")
+    @GetMapping("/movies/{Id}")
     public Movie getMovie(@PathVariable int Id) {
-        Movie movie = movieService.findById(Id);
-        if (movie== null) {
-            throw new RuntimeException("Movie id not found - " + Id);
-        }
-        return movie;
+        return movieService.findById(Id);
     }
 
     @PostMapping("/movies")
     public Movie addMovie(@RequestBody Movie movie) {
-
-        /*User user = userService.findById(movie.getUserId());
-        logger.info(String.valueOf(user.getName()));*/
-
-        List<User> users = userService.findAll();
-        for(User user:users){
-            logger.info(String.valueOf(user.getName()));
-        }
-
         movieService.save(movie);
         return movie;
     }

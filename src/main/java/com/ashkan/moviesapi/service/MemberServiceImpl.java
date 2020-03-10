@@ -2,6 +2,7 @@ package com.ashkan.moviesapi.service;
 
 import com.ashkan.moviesapi.dao.MemberRepository;
 import com.ashkan.moviesapi.entity.Member;
+import com.ashkan.moviesapi.exception.NotFound.MemberNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,18 +25,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member findById(int theId) {
-        Optional<Member> result = memberRepository.findById(theId);
-
-        Member member = null;
-
-        if (result.isPresent()) {
-            member = result.get();
-        }
-        else {
-            throw new RuntimeException("Did not find the member- " + theId);
-        }
-
-        return member;
+        return  memberRepository.findById(theId)
+                .orElseThrow(()->new MemberNotFoundException(theId));
     }
 
     @Override

@@ -27,16 +27,13 @@ public class ActorServiceImpl implements ActorService{
     @Override
     public Actor findById(int theId) {
         Optional<Actor> result = actorRepository.findById(theId);
-
-        Actor actor = null;
-
+        Actor actor;
         if (result.isPresent()) {
             actor = result.get();
         }
         else {
             throw new RuntimeException("Did not find the actor- " + theId);
         }
-
         return actor;
     }
 

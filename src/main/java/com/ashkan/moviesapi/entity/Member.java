@@ -1,6 +1,11 @@
 package com.ashkan.moviesapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -10,6 +15,7 @@ public class Member {
     private String name;
     private String username;
     private String telephone;
+    @JsonIgnore
     private Collection<MovieRental> movieRentalsByMemberId;
 
     @Id
@@ -23,6 +29,8 @@ public class Member {
         this.memberId = memberId;
     }
 
+    @NotBlank
+    @Max(value=100)
     @Basic
     @Column(name = "name")
     public String getName() {
@@ -33,6 +41,9 @@ public class Member {
         this.name = name;
     }
 
+    @NotBlank
+    @Email
+    @Max(value=150)
     @Basic
     @Column(name = "username")
     public String getUsername() {

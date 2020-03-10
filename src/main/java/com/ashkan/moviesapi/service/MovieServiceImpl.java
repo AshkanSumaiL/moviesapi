@@ -1,7 +1,11 @@
 package com.ashkan.moviesapi.service;
 
 import com.ashkan.moviesapi.dao.MovieRepository;
+import com.ashkan.moviesapi.dao.UserRepository;
 import com.ashkan.moviesapi.entity.Movie;
+import com.ashkan.moviesapi.entity.User;
+import com.ashkan.moviesapi.exception.NotFound.MemberNotFoundException;
+import com.ashkan.moviesapi.exception.NotFound.MovieNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +16,13 @@ import java.util.Optional;
 public class MovieServiceImpl implements MovieService{
 
     private MovieRepository movieRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public MovieServiceImpl(MovieRepository movieRepository) {
+    public MovieServiceImpl(MovieRepository movieRepository,
+                            UserRepository userRepository) {
         this.movieRepository = movieRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -26,22 +33,17 @@ public class MovieServiceImpl implements MovieService{
 
     @Override
     public Movie findById(int theId) {
-        Optional<Movie> result = movieRepository.findById(theId);
-
-        Movie movie = null;
-
-        if (result.isPresent()) {
-            movie = result.get();
-        }
-        else {
-            throw new RuntimeException("Did not find the movie- " + theId);
-        }
-
-        return movie;
+        return  movieRepository.findById(theId)
+                .orElseThrow(()->new MovieNotFoundException(theId));
     }
 
     @Override
     public void save(Movie movie) {
+        Optional<User> user= userRepository.findById(movie.getUserId());
+        if (!user.isPresent()) {
+            throw new MovieNotFoundException(movie.getUserId());
+        }
+        movie.setUserByUserId(user.get());
         movieRepository.save(movie);
     }
 

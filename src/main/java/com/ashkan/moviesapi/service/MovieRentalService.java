@@ -12,4 +12,6 @@ public interface MovieRentalService {
     public void save(MovieRental movieRental);
 
     public void deleteById(int theId);
+
+    public void patchStatus(MovieRental movieRental,int theId);
 }

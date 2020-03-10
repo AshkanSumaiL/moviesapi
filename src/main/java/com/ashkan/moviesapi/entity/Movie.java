@@ -3,6 +3,9 @@ package com.ashkan.moviesapi.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -20,7 +23,9 @@ public class Movie {
     private Collection<ActorsInMovies> actorsInMoviesById;
     @JsonIgnore
     private User userByUserId;
+    @JsonIgnore
     private Collection<MovieCatalog> movieCatalogsById;
+    @JsonIgnore
     private Collection<MovieRental> movieRentalsById;
 
     @Id
@@ -35,6 +40,8 @@ public class Movie {
     }
 
     @Basic
+    @Size(max = 50)
+    @NotBlank
     @Column(name = "title")
     public String getTitle() {
         return title;
@@ -54,6 +61,8 @@ public class Movie {
         this.year = year;
     }
 
+    @NotBlank
+    @Size(max = 150)
     @Basic
     @Column(name = "description")
     public String getDescription() {

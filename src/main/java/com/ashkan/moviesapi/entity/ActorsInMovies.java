@@ -8,8 +8,10 @@ import java.util.Objects;
 @Entity
 @Table(name = "actors_in_movies", schema = "moviedb", catalog = "")
 public class ActorsInMovies {
+    @JsonIgnore
     private int actorsInMoviesId;
     private int actorId;
+    @JsonIgnore
     private int movieId;
     @JsonIgnore
     private Actor actorByActorId;

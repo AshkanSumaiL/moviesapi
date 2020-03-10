@@ -23,7 +23,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{Id}")
-    public User getMovieMovieRental(@PathVariable int Id) {
+    public User getUser(@PathVariable int Id) {
         User user = userService.findById(Id);
         if (user== null) {
             throw new RuntimeException("User id not found - " + Id);
@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public User addMovieRental(@RequestBody User user) {
+    public User addUser(@RequestBody User user) {
         userService.save(user);
         return user;
     }

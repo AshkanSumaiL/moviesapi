@@ -29,16 +29,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(int theId) {
         Optional<User> result = userRepository.findById(theId);
-
-        User user = null;
-
+        User user;
         if (result.isPresent()) {
             user = result.get();
         }
         else {
             throw new RuntimeException("Did not find the user- " + theId);
         }
-
         return user;
     }
 
