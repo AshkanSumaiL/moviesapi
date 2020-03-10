@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/prices")
 public class PriceController {
     private PriceService priceService;
 
@@ -19,21 +19,17 @@ public class PriceController {
         this.priceService = priceService;
     }
 
-    @GetMapping("/prices")
+    @GetMapping
     public List<Price> findAll() {
         return priceService.findAll();
     }
 
-    @GetMapping("/prices/{Id}")
+    @GetMapping("{Id}")
     public Price getPrices(@PathVariable int Id) {
-        Price price = priceService.findById(Id);
-        if (price== null) {
-            throw new RuntimeException("Price id not found - " + Id);
-        }
-        return price;
+        return priceService.findById(Id);
     }
 
-    @PostMapping("/prices")
+    @PostMapping
     public Price addPrice(@RequestBody Price price) {
         priceService.save(price);
         return price;

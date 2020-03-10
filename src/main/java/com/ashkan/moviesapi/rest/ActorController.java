@@ -5,10 +5,11 @@ import com.ashkan.moviesapi.service.ActorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/actors")
 public class ActorController {
     private ActorService actorService;
 
@@ -17,31 +18,21 @@ public class ActorController {
         this.actorService = actorService;
     }
 
-
-    @GetMapping("/actors")
+    @GetMapping
     public List<Actor> findAll() {
         return actorService.findAll();
     }
 
-    @GetMapping("/actors/{Id}")
+    @GetMapping("{Id}")
     public Actor getActor(@PathVariable int Id) {
-        Actor actor = actorService.findById(Id);
-        if (actor == null) {
-            throw new RuntimeException("Actor id not found - " + Id);
-        }
-        return actor;
+        return actorService.findById(Id);
     }
 
-
-
-    @PostMapping("/actors")
+    @PostMapping
     public Actor addActor(@RequestBody Actor actor) {
-        //actor.setId(0);
         actorService.save(actor);
         return actor;
     }
-
-
 /*
     @PutMapping("/employees")
     public Employee updateEmployee(@RequestBody Employee theEmployee) {

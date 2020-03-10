@@ -6,39 +6,34 @@ import com.ashkan.moviesapi.entity.User;
 import com.ashkan.moviesapi.service.MovieService;
 import com.ashkan.moviesapi.service.UserService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/movies")
 public class MovieController {
 
-    Logger logger = LoggerFactory.getLogger(MovieController.class);
-
     private MovieService movieService;
-    private UserService userService;
 
     @Autowired
-    public MovieController(MovieService movieService,UserService userService) {
+    public MovieController(MovieService movieService) {
         this.movieService = movieService;
-        this.userService = userService;
     }
 
-    @GetMapping("/movies")
+    @GetMapping
     public List<Movie> findAll() {
         return movieService.findAll();
     }
 
-    @GetMapping("/movies/{Id}")
+    @GetMapping("{Id}")
     public Movie getMovie(@PathVariable int Id) {
         return movieService.findById(Id);
     }
 
-    @PostMapping("/movies")
+    @PostMapping
     public Movie addMovie(@RequestBody Movie movie) {
         movieService.save(movie);
         return movie;

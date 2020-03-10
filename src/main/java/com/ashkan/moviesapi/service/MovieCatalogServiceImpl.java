@@ -13,13 +13,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class MovieCatalogServiveImpl implements  MovieCatalogService{
+public class MovieCatalogServiceImpl implements  MovieCatalogService{
     private MovieCatalogRepository movieCatalogRepository;
     private MovieRepository movieRepository;
     private PriceRepository priceRepository;
 
     @Autowired
-    public MovieCatalogServiveImpl(MovieCatalogRepository movieCatalogRepository,
+    public MovieCatalogServiceImpl(MovieCatalogRepository movieCatalogRepository,
                                    PriceRepository priceRepository,
                                    MovieRepository movieRepository) {
         this.movieCatalogRepository = movieCatalogRepository;
@@ -34,32 +34,19 @@ public class MovieCatalogServiveImpl implements  MovieCatalogService{
 
     @Override
     public MovieCatalog findById(int theId) {
-        Optional<MovieCatalog> result = movieCatalogRepository.findById(theId);
-
-        MovieCatalog movieCatalog = null;
-
-        if (result.isPresent()) {
-            movieCatalog = result.get();
-        }
-        else {
-            throw new RuntimeException("Did not find the movie catalog- " + theId);
-        }
-
-        return movieCatalog;
+        return movieCatalogRepository.findById(theId)
+                .orElseThrow(()->new RuntimeException("Did not find the movie catalog - " + theId));
     }
 
     @Override
     public void save(MovieCatalog movieCatalog) {
-        Optional<Movie> movie = movieRepository.findById(movieCatalog.getMovieId());
-        Optional<Price> price= priceRepository.findById(movieCatalog.getPriceId());
-        if (!movie.isPresent()) {
-            throw new RuntimeException("movie id not found - " + movieCatalog.getMovieId());
-        }
-        if (!price.isPresent()) {
-            throw new RuntimeException("price id not found - " + movieCatalog.getPriceId());
-        }
-        movieCatalog.setMovieByMovieId(movie.get());
-        movieCatalog.setPriceByPriceId(price.get());
+        Movie movie = movieRepository.findById(movieCatalog.getMovieId())
+                .orElseThrow(()->new RuntimeException("Did not find the movie  - " + movieCatalog.getMovieId()));
+        Price price= priceRepository.findById(movieCatalog.getPriceId())
+                .orElseThrow(()->new RuntimeException("Did not find the price  - " + movieCatalog.getPriceId()));
+
+        movieCatalog.setMovieByMovieId(movie);
+        movieCatalog.setPriceByPriceId(price);
         movieCatalogRepository.save(movieCatalog);
     }
 

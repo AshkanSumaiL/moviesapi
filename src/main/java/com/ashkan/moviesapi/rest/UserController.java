@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 public class UserController {
     private UserService userService;
 
@@ -17,21 +17,17 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
+    @GetMapping
     public List<User> findAll() {
         return userService.findAll();
     }
 
-    @GetMapping("/users/{Id}")
+    @GetMapping("{Id}")
     public User getUser(@PathVariable int Id) {
-        User user = userService.findById(Id);
-        if (user== null) {
-            throw new RuntimeException("User id not found - " + Id);
-        }
-        return user;
+        return userService.findById(Id);
     }
 
-    @PostMapping("/users")
+    @PostMapping
     public User addUser(@RequestBody User user) {
         userService.save(user);
         return user;

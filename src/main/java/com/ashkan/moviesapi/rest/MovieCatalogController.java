@@ -13,33 +13,26 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/catalog-entry")
 public class MovieCatalogController {
     private MovieCatalogService movieCatalogService;
-    private MovieService movieService;
-    private PriceService priceService;
-
 
     @Autowired
-    public MovieCatalogController(MovieCatalogService movieCatalogService,
-                                  PriceService priceService,
-                                  MovieService movieService) {
+    public MovieCatalogController(MovieCatalogService movieCatalogService) {
         this.movieCatalogService = movieCatalogService;
-        this.movieService=movieService;
-        this.priceService=priceService;
     }
 
-    @GetMapping("/catalog-entry")
+    @GetMapping
     public List<MovieCatalog> findAll() {
         return movieCatalogService.findAll();
     }
 
-    @GetMapping("/catalog-entry/{Id}")
+    @GetMapping("{Id}")
     public MovieCatalog getMovieCatalog(@PathVariable int Id) {
         return movieCatalogService.findById(Id);
     }
 
-    @PostMapping("/catalog-entry")
+    @PostMapping
     public MovieCatalog addMovieCatalog(@RequestBody MovieCatalog movieCatalog) {
         movieCatalogService.save(movieCatalog);
         return movieCatalog;

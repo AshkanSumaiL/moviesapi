@@ -23,7 +23,6 @@ public class Movie {
     private Collection<ActorsInMovies> actorsInMoviesById;
     @JsonIgnore
     private User userByUserId;
-    @JsonIgnore
     private Collection<MovieCatalog> movieCatalogsById;
     @JsonIgnore
     private Collection<MovieRental> movieRentalsById;
