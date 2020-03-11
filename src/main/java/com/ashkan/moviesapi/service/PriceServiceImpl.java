@@ -27,16 +27,8 @@ public class PriceServiceImpl implements  PriceService{
 
     @Override
     public Price findById(int theId) {
-        Optional<Price> result = priceRepository.findById(theId);
-
-        Price price;
-        if (result.isPresent()) {
-            price = result.get();
-        }
-        else {
-            throw new RuntimeException("Did not find the price id- " + theId);
-        }
-        return price;
+        return priceRepository.findById(theId).
+                orElseThrow(()->new RuntimeException("Price id not found:"+theId));
     }
 
     @Override

@@ -13,7 +13,8 @@ import java.util.List;
 
 
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
-    //@Query("SELECT u FROM Movie u WHERE u.deleted = 0")
-    @Query("SELECT u FROM Movie as u LEFT JOIN u.movieCatalogsById")
+    @Query("SELECT u FROM Movie as u " +
+            "LEFT JOIN u.movieCatalogsById s " +
+            "WHERE u.deleted=0")
     List<Movie> findAvailableMovies();
 }

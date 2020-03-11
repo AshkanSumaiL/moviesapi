@@ -34,7 +34,7 @@ public class MovieController {
     }
 
     @PostMapping
-    public Movie addMovie(@RequestBody Movie movie) {
+    public Movie addMovie(@RequestBody Movie movie) throws Exception {
         movieService.save(movie);
         return movie;
     }

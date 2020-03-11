@@ -1,5 +1,6 @@
 package com.ashkan.moviesapi.service;
 
+import com.ashkan.moviesapi.constants.constants;
 import com.ashkan.moviesapi.dao.MovieRepository;
 import com.ashkan.moviesapi.dao.UserRepository;
 import com.ashkan.moviesapi.entity.Movie;
@@ -31,7 +32,6 @@ public class MovieServiceImpl implements MovieService{
         return movieRepository.findAvailableMovies();
     }
 
-
     @Override
     public Movie findById(int theId) {
         return  movieRepository.findById(theId)
@@ -39,13 +39,17 @@ public class MovieServiceImpl implements MovieService{
     }
 
     @Override
-    public void save(Movie movie) {
-        Optional<User> user= userRepository.findById(movie.getUserId());
-        if (!user.isPresent()) {
-            throw new MovieNotFoundException(movie.getUserId());
+    public void save(Movie movie) throws Exception {
+        User userFind = userRepository.findById(movie.getUserId())
+                .orElseThrow(()->new RuntimeException("User id not found"));
+        movie.setUserByUserId(userFind);
+        if(constants.Rates.contains(movie.getRate())){
+            movieRepository.save(movie);
         }
-        movie.setUserByUserId(user.get());
-        movieRepository.save(movie);
+        else{
+            throw new Exception("Rates allowed:"+constants.Rates.toString());
+        }
+
     }
 
     @Override

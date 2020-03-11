@@ -5,6 +5,7 @@ import com.ashkan.moviesapi.constants.constants;
 import com.ashkan.moviesapi.dao.*;
 import com.ashkan.moviesapi.entity.*;
 import com.ashkan.moviesapi.exception.BadRequest.MovieRentalBadRequestException;
+import com.ashkan.moviesapi.exception.BadRequest.MovieRentalBadRequestException2;
 import com.ashkan.moviesapi.exception.NotFound.MemberNotFoundException;
 import com.ashkan.moviesapi.exception.NotFound.MovieRentalNotFoundException;
 import org.modelmapper.ModelMapper;
@@ -69,7 +70,13 @@ public class MovieRentalServiceImpl implements  MovieRentalService{
         movieRental.setDate(currentDate);
         movieRental.setToReturnDate(returnDate);
         movieRental.setStatus("Rented");
-        movieCatalog.setCopies(movieCatalog.getCopies()-1);
+
+        if(movieCatalog.getCopies()>0){
+            movieCatalog.setCopies(movieCatalog.getCopies()-1);
+        }else {
+            throw new MovieRentalBadRequestException2();
+        }
+
         movieRentalRepository.save(movieRental);
     }
 
@@ -95,10 +102,9 @@ public class MovieRentalServiceImpl implements  MovieRentalService{
             movieRentalFind.setReturnedDate(new Timestamp(System.currentTimeMillis()));
             movieCatalogFind.setCopies(movieCatalogFind.getCopies()+1);
         }else{
-            throw new MovieRentalBadRequestException(theId);
+            throw new MovieRentalBadRequestException();
         }
-
-        save(movieRentalFind);
+        movieRentalRepository.save(movieRentalFind);
     }
 
 

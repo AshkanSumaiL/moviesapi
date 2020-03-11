@@ -9,7 +9,7 @@ public interface MovieService {
 
         public Movie findById(int theId);
 
-        public void save(Movie actor);
+        public void save(Movie actor) throws Exception;
 
         public void deleteById(int theId);
 }

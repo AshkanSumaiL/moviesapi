@@ -38,8 +38,11 @@ public class MovieRentalController {
     }
 
     @PatchMapping("{Id}")
-    public void patchMovieMovieRental(@RequestBody MovieRentalPatchDTO movieRentalPatchDTO,@PathVariable int Id) {
+   /* public void patchMovieMovieRental(@RequestBody MovieRentalPatchDTO movieRentalPatchDTO,@PathVariable int Id) {
         movieRentalService.patchStatus(convertToEntity(movieRentalPatchDTO),Id);
+    }*/
+    public void patchMovieMovieRental(@RequestBody MovieRental movieRental,@PathVariable int Id) {
+        movieRentalService.patchStatus(movieRental,Id);
     }
 
     @PostMapping

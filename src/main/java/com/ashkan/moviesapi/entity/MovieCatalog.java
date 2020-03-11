@@ -10,9 +10,7 @@ import java.util.Objects;
 public class MovieCatalog {
     @JsonIgnore
     private int movieCatalogId;
-    @JsonIgnore
     private int movieId;
-    @JsonIgnore
     private int priceId;
     private Integer copies;
     @JsonIgnore
