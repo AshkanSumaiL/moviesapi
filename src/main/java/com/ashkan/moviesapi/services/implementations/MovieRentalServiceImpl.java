@@ -26,8 +26,6 @@ public class MovieRentalServiceImpl implements MovieRentalService {
     private MovieRepository movieRepository;
     private MemberRepository memberRepository;
     private MovieCatalogRepository movieCatalogRepository;
-    private ModelMapper modelMapper;
-
 
     @Autowired
     public MovieRentalServiceImpl(MovieRentalRepository movieRentalRepository,
@@ -38,8 +36,6 @@ public class MovieRentalServiceImpl implements MovieRentalService {
         this.movieRepository = movieRepository;
         this.memberRepository = memberRepository;
         this.movieCatalogRepository = movieCatalogRepository;
-
-
     }
 
     @Override
@@ -48,9 +44,9 @@ public class MovieRentalServiceImpl implements MovieRentalService {
     }
 
     @Override
-    public MovieRental findById(int theId) {
-        return movieRentalRepository.findById(theId)
-                .orElseThrow(() -> new MovieRentalNotFoundException(theId));
+    public MovieRental findById(int id) {
+        return movieRentalRepository.findById(id)
+                .orElseThrow(() -> new MovieRentalNotFoundException(id));
     }
 
     @Override
@@ -83,14 +79,14 @@ public class MovieRentalServiceImpl implements MovieRentalService {
     }
 
     @Override
-    public void deleteById(int theId) {
-        movieRentalRepository.deleteById(theId);
+    public void deleteById(int id) {
+        movieRentalRepository.deleteById(id);
     }
 
     @Override
-    public void patchStatus(MovieRental movieRental, int theId) {
-        MovieRental movieRentalFind = movieRentalRepository.findById(theId)
-                .orElseThrow(() -> new MovieRentalNotFoundException(theId));
+    public void patchStatus(MovieRental movieRental, int id) {
+        MovieRental movieRentalFind = movieRentalRepository.findById(id)
+                .orElseThrow(() -> new MovieRentalNotFoundException(id));
 
         MovieCatalog movieCatalogFind = movieCatalogRepository.findById(movieRentalFind.getMovieId())
                 .orElseThrow(() -> new RuntimeException("Movie Catalog not found" + movieRentalFind.getMovieId()));

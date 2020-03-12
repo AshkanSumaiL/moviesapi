@@ -24,9 +24,9 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member findById(int theId) {
-        return memberRepository.findById(theId)
-                .orElseThrow(() -> new MemberNotFoundException(theId));
+    public Member findById(int id) {
+        return memberRepository.findById(id)
+                .orElseThrow(() -> new MemberNotFoundException(id));
     }
 
     @Override
@@ -35,7 +35,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void deleteById(int theId) {
-        memberRepository.deleteById(theId);
+    public void deleteById(int id) {
+        memberRepository.deleteById(id);
     }
 }

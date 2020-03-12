@@ -7,8 +7,6 @@ import com.ashkan.moviesapi.entities.Movie;
 import com.ashkan.moviesapi.entities.MovieCatalog;
 import com.ashkan.moviesapi.entities.Price;
 import com.ashkan.moviesapi.services.interfaces.MovieCatalogService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +18,6 @@ public class MovieCatalogServiceImpl implements MovieCatalogService {
     private MovieCatalogRepository movieCatalogRepository;
     private MovieRepository movieRepository;
     private PriceRepository priceRepository;
-    Logger logger = LoggerFactory.getLogger(MovieCatalogServiceImpl.class);
 
     @Autowired
     public MovieCatalogServiceImpl(MovieCatalogRepository movieCatalogRepository,
@@ -37,9 +34,9 @@ public class MovieCatalogServiceImpl implements MovieCatalogService {
     }
 
     @Override
-    public MovieCatalog findById(int theId) {
-        return movieCatalogRepository.findById(theId)
-                .orElseThrow(() -> new RuntimeException("Did not find the movie catalog - " + theId));
+    public MovieCatalog findById(int id) {
+        return movieCatalogRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Did not find the movie catalog - " + id));
     }
 
     @Override
@@ -58,11 +55,10 @@ public class MovieCatalogServiceImpl implements MovieCatalogService {
         } else {
             throw new RuntimeException("this movie already exists in catalog!");
         }
-
     }
 
     @Override
-    public void deleteById(int theId) {
-        movieCatalogRepository.deleteById(theId);
+    public void deleteById(int id) {
+        movieCatalogRepository.deleteById(id);
     }
 }

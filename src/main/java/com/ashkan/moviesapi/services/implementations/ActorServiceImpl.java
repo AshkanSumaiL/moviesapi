@@ -25,13 +25,13 @@ public class ActorServiceImpl implements ActorService {
     }
 
     @Override
-    public Actor findById(int theId) {
-        Optional<Actor> result = actorRepository.findById(theId);
+    public Actor findById(int id) {
+        Optional<Actor> result = actorRepository.findById(id);
         Actor actor;
         if (result.isPresent()) {
             actor = result.get();
         } else {
-            throw new RuntimeException("Did not find the actor- " + theId);
+            throw new RuntimeException("Did not find the actor- " + id);
         }
         return actor;
     }
@@ -42,7 +42,7 @@ public class ActorServiceImpl implements ActorService {
     }
 
     @Override
-    public void deleteById(int theId) {
-        actorRepository.deleteById(theId);
+    public void deleteById(int id) {
+        actorRepository.deleteById(id);
     }
 }

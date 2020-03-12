@@ -7,9 +7,9 @@ import java.util.List;
 public interface MovieService {
     List<Movie> findAll();
 
-    Movie findById(int theId);
+    Movie findById(int id);
 
     void save(Movie actor) throws Exception;
 
-    void deleteById(int theId);
+    void deleteById(int id);
 }

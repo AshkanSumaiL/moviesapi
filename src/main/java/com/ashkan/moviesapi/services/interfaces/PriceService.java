@@ -7,9 +7,9 @@ import java.util.List;
 public interface PriceService {
     List<Price> findAll();
 
-    Price findById(int theId);
+    Price findById(int id);
 
     void save(Price actor);
 
-    void deleteById(int theId);
+    void deleteById(int id);
 }

@@ -7,9 +7,9 @@ import java.util.List;
 public interface MemberService {
     List<Member> findAll();
 
-    Member findById(int theId);
+    Member findById(int id);
 
     void save(Member member);
 
-    void deleteById(int theId);
+    void deleteById(int id);
 }

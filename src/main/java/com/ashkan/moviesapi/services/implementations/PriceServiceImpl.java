@@ -22,11 +22,10 @@ public class PriceServiceImpl implements PriceService {
         return priceRepository.findAll();
     }
 
-
     @Override
-    public Price findById(int theId) {
-        return priceRepository.findById(theId).
-                orElseThrow(() -> new RuntimeException("Price id not found:" + theId));
+    public Price findById(int id) {
+        return priceRepository.findById(id).
+                orElseThrow(() -> new RuntimeException("Price id not found:" + id));
     }
 
     @Override
@@ -35,7 +34,7 @@ public class PriceServiceImpl implements PriceService {
     }
 
     @Override
-    public void deleteById(int theId) {
-        priceRepository.deleteById(theId);
+    public void deleteById(int id) {
+        priceRepository.deleteById(id);
     }
 }

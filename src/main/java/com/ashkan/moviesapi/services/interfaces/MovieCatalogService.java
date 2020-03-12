@@ -7,9 +7,9 @@ import java.util.List;
 public interface MovieCatalogService {
     List<MovieCatalog> findAll();
 
-    MovieCatalog findById(int theId);
+    MovieCatalog findById(int id);
 
     void save(MovieCatalog movieCatalog);
 
-    void deleteById(int theId);
+    void deleteById(int id);
 }

@@ -32,9 +32,9 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Movie findById(int theId) {
-        return movieRepository.findById(theId)
-                .orElseThrow(() -> new MovieNotFoundException(theId));
+    public Movie findById(int id) {
+        return movieRepository.findById(id)
+                .orElseThrow(() -> new MovieNotFoundException(id));
     }
 
     @Override
@@ -48,12 +48,11 @@ public class MovieServiceImpl implements MovieService {
         } else {
             throw new Exception("Rates allowed:" + constants.Rates.toString());
         }
-
     }
 
     @Override
-    public void deleteById(int theId) {
-        movieRepository.deleteById(theId);
+    public void deleteById(int id) {
+        movieRepository.deleteById(id);
     }
 
 

@@ -24,15 +24,14 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
-
     @Override
-    public User findById(int theId) {
-        Optional<User> result = userRepository.findById(theId);
+    public User findById(int id) {
+        Optional<User> result = userRepository.findById(id);
         User user;
         if (result.isPresent()) {
             user = result.get();
         } else {
-            throw new RuntimeException("Did not find the user- " + theId);
+            throw new RuntimeException("Did not find the user- " + id);
         }
         return user;
     }
@@ -43,7 +42,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteById(int theId) {
-        userRepository.deleteById(theId);
+    public void deleteById(int id) {
+        userRepository.deleteById(id);
     }
 }

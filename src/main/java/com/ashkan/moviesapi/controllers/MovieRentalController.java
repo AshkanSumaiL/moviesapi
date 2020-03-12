@@ -14,14 +14,9 @@ import java.util.List;
 public class MovieRentalController {
     private MovieRentalService movieRentalService;
 
-    private ModelMapper modelMapper;
-
-
     @Autowired
-    public MovieRentalController(MovieRentalService movieRentalService,
-                                 ModelMapper modelMapper) {
+    public MovieRentalController(MovieRentalService movieRentalService) {
         this.movieRentalService = movieRentalService;
-        this.modelMapper = modelMapper;
     }
 
     @GetMapping
