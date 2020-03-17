@@ -1,5 +1,7 @@
 package com.ashkan.moviesapi.services.implementations;
 
+import com.ashkan.moviesapi.exceptions.Conflict.ConflictException;
+import com.ashkan.moviesapi.exceptions.NotFound.NotFoundException;
 import com.ashkan.moviesapi.repositories.MovieCatalogRepository;
 import com.ashkan.moviesapi.repositories.MovieRepository;
 import com.ashkan.moviesapi.repositories.PriceRepository;
@@ -36,24 +38,24 @@ public class MovieCatalogServiceImpl implements MovieCatalogService {
     @Override
     public MovieCatalog findById(int id) {
         return movieCatalogRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Did not find the movie catalog - " + id));
+                .orElseThrow(() -> new NotFoundException("Movie Catalog",id));
     }
 
     @Override
     public void save(MovieCatalog movieCatalog) {
         Movie movie = movieRepository.findById(movieCatalog.getMovieId())
-                .orElseThrow(() -> new RuntimeException("Did not find the movie  id: " + movieCatalog.getMovieId()));
+                .orElseThrow(() -> new NotFoundException("Movies",movieCatalog.getMovieId()));
         Price price = priceRepository.findById(movieCatalog.getPriceId())
-                .orElseThrow(() -> new RuntimeException("Did not find the price  id: " + movieCatalog.getPriceId()));
+                .orElseThrow(() -> new NotFoundException("Prices",movieCatalog.getPriceId()));
 
         Optional<MovieCatalog> movieCatalogFind = movieCatalogRepository.findByMovieId(movie.getId());
 
         if (!movieCatalogFind.isPresent()) {
-            movieCatalog.setMovieByMovieId(movie);
-            movieCatalog.setPriceByPriceId(price);
+            movieCatalog.setMovie(movie);
+            movieCatalog.setPrice(price);
             movieCatalogRepository.save(movieCatalog);
         } else {
-            throw new RuntimeException("this movie already exists in catalog!");
+            throw new ConflictException("This movie already exists in catalog:"+movie.getTitle());
         }
     }
 

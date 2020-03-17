@@ -1,5 +1,6 @@
 package com.ashkan.moviesapi.services.implementations;
 
+import com.ashkan.moviesapi.exceptions.NotFound.NotFoundException;
 import com.ashkan.moviesapi.repositories.PriceRepository;
 import com.ashkan.moviesapi.entities.Price;
 import com.ashkan.moviesapi.services.interfaces.PriceService;
@@ -25,7 +26,7 @@ public class PriceServiceImpl implements PriceService {
     @Override
     public Price findById(int id) {
         return priceRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("Price id not found:" + id));
+                orElseThrow(() -> new NotFoundException("Prices" , id));
     }
 
     @Override

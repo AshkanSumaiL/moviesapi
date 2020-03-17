@@ -24,14 +24,14 @@ public class MovieRentalController {
         return movieRentalService.findAll();
     }
 
-    @GetMapping("{Id}")
-    public MovieRental getMovieMovieRental(@PathVariable int Id) {
-        return movieRentalService.findById(Id);
+    @GetMapping("{id}")
+    public MovieRental getMovieMovieRental(@PathVariable int id) {
+        return movieRentalService.findById(id);
     }
 
-    @PatchMapping("{Id}")
-    public void patchMovieMovieRental(@RequestBody MovieRental movieRental, @PathVariable int Id) {
-        movieRentalService.patchStatus(movieRental, Id);
+    @PatchMapping("{id}")
+    public void patchMovieMovieRental(@RequestBody MovieRental movieRental, @PathVariable int id) {
+        movieRentalService.patchStatus(movieRental, id);
     }
 
     @PostMapping

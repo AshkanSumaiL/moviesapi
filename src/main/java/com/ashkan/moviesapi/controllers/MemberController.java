@@ -22,9 +22,9 @@ public class MemberController {
         return memberService.findAll();
     }
 
-    @GetMapping("{Id}")
-    public Member getMember(@PathVariable int Id) {
-        return memberService.findById(Id);
+    @GetMapping("{id}")
+    public Member getMember(@PathVariable int id) {
+        return memberService.findById(id);
     }
 
     @PostMapping

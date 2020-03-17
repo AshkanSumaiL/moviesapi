@@ -1,6 +1,7 @@
 package com.ashkan.moviesapi.controllers;
 
 import com.ashkan.moviesapi.entities.Movie;
+import com.ashkan.moviesapi.services.interfaces.ActorService;
 import com.ashkan.moviesapi.services.interfaces.MovieService;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
@@ -17,25 +18,20 @@ import java.util.List;
 public class MovieController {
 
     private MovieService movieService;
-    private SimpleBeanPropertyFilter filter;
 
     @Autowired
-    public MovieController(MovieService movieService,ModelMapper modelMapper) {
+    public MovieController(MovieService movieService) {
         this.movieService = movieService;
     }
 
     @GetMapping
     public List<Movie> findAll() {
-        /*filter= SimpleBeanPropertyFilter.filterOutAllExcept("title","year","rate","actorsInMoviesById");
-        FilterProvider filters=new SimpleFilterProvider().addFilter("MovieFilter",filter);
-        MappingJacksonValue mapping = new MappingJacksonValue(movieService.findAll());
-        mapping.setFilters(filters);*/
         return movieService.findAll();
     }
 
-    @GetMapping("{Id}")
-    public Movie getMovie(@PathVariable int Id) {
-        return movieService.findById(Id);
+    @GetMapping("{id}")
+    public Movie getMovie(@PathVariable int id) {
+        return movieService.findById(id);
     }
 
     @PostMapping

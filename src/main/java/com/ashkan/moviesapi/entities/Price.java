@@ -59,7 +59,7 @@ public class Price {
         return Objects.hash(id, price, date);
     }
 
-    @OneToMany(mappedBy = "priceByPriceId")
+    @OneToMany(mappedBy = "price",cascade = CascadeType.ALL)
     public Collection<MovieCatalog> getMovieCatalogsById() {
         return movieCatalogsById;
     }

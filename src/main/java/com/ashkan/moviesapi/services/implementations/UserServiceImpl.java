@@ -1,5 +1,6 @@
 package com.ashkan.moviesapi.services.implementations;
 
+import com.ashkan.moviesapi.exceptions.NotFound.NotFoundException;
 import com.ashkan.moviesapi.repositories.UserRepository;
 import com.ashkan.moviesapi.entities.User;
 import com.ashkan.moviesapi.services.interfaces.UserService;
@@ -31,7 +32,7 @@ public class UserServiceImpl implements UserService {
         if (result.isPresent()) {
             user = result.get();
         } else {
-            throw new RuntimeException("Did not find the user- " + id);
+            throw new NotFoundException("Users", id);
         }
         return user;
     }

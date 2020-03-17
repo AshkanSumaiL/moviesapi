@@ -14,9 +14,9 @@ public class ActorsInMovies {
     @JsonIgnore
     private int movieId;
     @JsonIgnore
-    private Actor actorByActorId;
+    private Actor actor;
     @JsonIgnore
-    private Movie movieByMovieId;
+    private Movie movie;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,23 +64,23 @@ public class ActorsInMovies {
         return Objects.hash(actorsInMoviesId, actorId, movieId);
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "actor_id", referencedColumnName = "id", nullable = false)
-    public Actor getActorByActorId() {
-        return actorByActorId;
+    public Actor getActor() {
+        return actor;
     }
 
-    public void setActorByActorId(Actor actorByActorId) {
-        this.actorByActorId = actorByActorId;
+    public void setActor(Actor actorByActorId) {
+        this.actor = actorByActorId;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id", referencedColumnName = "id", nullable = false)
-    public Movie getMovieByMovieId() {
-        return movieByMovieId;
+    public Movie getMovie() {
+        return movie;
     }
 
-    public void setMovieByMovieId(Movie movieByMovieId) {
-        this.movieByMovieId = movieByMovieId;
+    public void setMovie(Movie movieByMovieId) {
+        this.movie = movieByMovieId;
     }
 }

@@ -1,5 +1,6 @@
 package com.ashkan.moviesapi.services.implementations;
 
+import com.ashkan.moviesapi.exceptions.NotFound.NotFoundException;
 import com.ashkan.moviesapi.repositories.MemberRepository;
 import com.ashkan.moviesapi.entities.Member;
 import com.ashkan.moviesapi.exceptions.NotFound.MemberNotFoundException;
@@ -26,7 +27,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Member findById(int id) {
         return memberRepository.findById(id)
-                .orElseThrow(() -> new MemberNotFoundException(id));
+                .orElseThrow(() -> new NotFoundException("Members",id));
     }
 
     @Override

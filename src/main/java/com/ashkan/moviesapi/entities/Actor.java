@@ -45,7 +45,7 @@ public class Actor {
         return Objects.hash(id, name);
     }
 
-    @OneToMany(mappedBy = "actorByActorId")
+    @OneToMany(mappedBy = "actor",cascade = CascadeType.ALL)
     public Collection<ActorsInMovies> getActorsInMoviesById() {
         return actorsInMoviesById;
     }

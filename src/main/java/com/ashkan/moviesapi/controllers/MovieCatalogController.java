@@ -22,9 +22,9 @@ public class MovieCatalogController {
         return movieCatalogService.findAll();
     }
 
-    @GetMapping("{Id}")
-    public MovieCatalog getMovieCatalog(@PathVariable int Id) {
-        return movieCatalogService.findById(Id);
+    @GetMapping("{id}")
+    public MovieCatalog getMovieCatalog(@PathVariable int id) {
+        return movieCatalogService.findById(id);
     }
 
     @PostMapping

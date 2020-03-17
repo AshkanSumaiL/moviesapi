@@ -1,6 +1,10 @@
 package com.ashkan.moviesapi.services.implementations;
 
-import com.ashkan.moviesapi.constants.constants;
+import com.ashkan.moviesapi.constants.Constants;
+import com.ashkan.moviesapi.entities.Actor;
+import com.ashkan.moviesapi.exceptions.BadRequest.BadRequestException;
+import com.ashkan.moviesapi.exceptions.NotFound.NotFoundException;
+import com.ashkan.moviesapi.repositories.ActorRepository;
 import com.ashkan.moviesapi.repositories.MovieRepository;
 import com.ashkan.moviesapi.repositories.UserRepository;
 import com.ashkan.moviesapi.entities.Movie;
@@ -17,12 +21,15 @@ public class MovieServiceImpl implements MovieService {
 
     private MovieRepository movieRepository;
     private UserRepository userRepository;
+    private ActorRepository actorRepository;
 
     @Autowired
     public MovieServiceImpl(MovieRepository movieRepository,
-                            UserRepository userRepository) {
+                            UserRepository userRepository,
+                            ActorRepository actorRepository) {
         this.movieRepository = movieRepository;
         this.userRepository = userRepository;
+        this.actorRepository=actorRepository;
     }
 
     @Override
@@ -34,19 +41,20 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public Movie findById(int id) {
         return movieRepository.findById(id)
-                .orElseThrow(() -> new MovieNotFoundException(id));
+                .orElseThrow(() -> new NotFoundException("Movies",id));
     }
 
     @Override
     public void save(Movie movie) throws Exception {
         User userFind = userRepository.findById(movie.getUserId())
-                .orElseThrow(() -> new RuntimeException("User id not found"));
-        movie.setUserByUserId(userFind);
-        if (constants.Rates.contains(movie.getRate())) {
+                .orElseThrow(() -> new NotFoundException("Users",movie.getUserId()));
+        movie.setUser(userFind);
+        
+        if (Constants.RATES.contains(movie.getRate())) {
             movie.setDeleted((byte)0);
             movieRepository.save(movie);
         } else {
-            throw new Exception("Rates allowed:" + constants.Rates.toString());
+            throw new BadRequestException("Rates allowed:" + Constants.RATES.toString());
         }
     }
 

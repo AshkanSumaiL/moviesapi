@@ -80,7 +80,7 @@ public class Member {
         return Objects.hash(memberId, name, username, telephone);
     }
 
-    @OneToMany(mappedBy = "memberByMemberId")
+    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
     public Collection<MovieRental> getMovieRentalsByMemberId() {
         return movieRentalsByMemberId;
     }

@@ -1,6 +1,7 @@
 package com.ashkan.moviesapi.services.implementations;
 
 
+import com.ashkan.moviesapi.exceptions.NotFound.NotFoundException;
 import com.ashkan.moviesapi.repositories.ActorRepository;
 import com.ashkan.moviesapi.entities.Actor;
 import com.ashkan.moviesapi.services.interfaces.ActorService;
@@ -31,7 +32,7 @@ public class ActorServiceImpl implements ActorService {
         if (result.isPresent()) {
             actor = result.get();
         } else {
-            throw new RuntimeException("Did not find the actor- " + id);
+            throw new NotFoundException("Actors",id);
         }
         return actor;
     }

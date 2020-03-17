@@ -17,9 +17,9 @@ public class MovieRental {
     private Timestamp returnedDate;
     private String status;
     @JsonIgnore
-    private Movie movieByMovieId;
+    private Movie movie;
     @JsonIgnore
-    private Member memberByMemberId;
+    private Member member;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -111,23 +111,23 @@ public class MovieRental {
         return Objects.hash(movieRentalId, movieId, memberId, date, toReturnDate, returnedDate, status);
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id", referencedColumnName = "id", nullable = false)
-    public Movie getMovieByMovieId() {
-        return movieByMovieId;
+    public Movie getMovie() {
+        return movie;
     }
 
-    public void setMovieByMovieId(Movie movieByMovieId) {
-        this.movieByMovieId = movieByMovieId;
+    public void setMovie(Movie movieByMovieId) {
+        this.movie = movieByMovieId;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", referencedColumnName = "member_id", nullable = false)
-    public Member getMemberByMemberId() {
-        return memberByMemberId;
+    public Member getMember() {
+        return member;
     }
 
-    public void setMemberByMemberId(Member memberByMemberId) {
-        this.memberByMemberId = memberByMemberId;
+    public void setMember(Member memberByMemberId) {
+        this.member = memberByMemberId;
     }
 }

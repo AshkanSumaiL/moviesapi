@@ -22,9 +22,9 @@ public class PriceController {
         return priceService.findAll();
     }
 
-    @GetMapping("{Id}")
-    public Price getPrices(@PathVariable int Id) {
-        return priceService.findById(Id);
+    @GetMapping("{id}")
+    public Price getPrices(@PathVariable int id) {
+        return priceService.findById(id);
     }
 
     @PostMapping

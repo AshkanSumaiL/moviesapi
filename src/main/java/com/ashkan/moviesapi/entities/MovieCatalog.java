@@ -17,9 +17,9 @@ public class MovieCatalog {
     private int priceId;
     private Integer copies;
     @JsonIgnore
-    private Movie movieByMovieId;
+    private Movie movie;
     @JsonIgnore
-    private Price priceByPriceId;
+    private Price price;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -78,23 +78,23 @@ public class MovieCatalog {
         return Objects.hash(movieCatalogId, movieId, priceId, copies);
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id", referencedColumnName = "id", nullable = false)
-    public Movie getMovieByMovieId() {
-        return movieByMovieId;
+    public Movie getMovie() {
+        return movie;
     }
 
-    public void setMovieByMovieId(Movie movieByMovieId) {
-        this.movieByMovieId = movieByMovieId;
+    public void setMovie(Movie movieByMovieId) {
+        this.movie = movieByMovieId;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "price_id", referencedColumnName = "id", nullable = false)
-    public Price getPriceByPriceId() {
-        return priceByPriceId;
+    public Price getPrice() {
+        return price;
     }
 
-    public void setPriceByPriceId(Price priceByPriceId) {
-        this.priceByPriceId = priceByPriceId;
+    public void setPrice(Price priceByPriceId) {
+        this.price = priceByPriceId;
     }
 }

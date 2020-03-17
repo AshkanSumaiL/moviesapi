@@ -22,9 +22,9 @@ public class ActorController {
         return actorService.findAll();
     }
 
-    @GetMapping("{Id}")
-    public Actor getActor(@PathVariable int Id) {
-        return actorService.findById(Id);
+    @GetMapping("{id}")
+    public Actor getActor(@PathVariable int id) {
+        return actorService.findById(id);
     }
 
     @PostMapping

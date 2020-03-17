@@ -2,7 +2,6 @@ package com.ashkan.moviesapi.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -26,7 +25,7 @@ public class Movie {
     private int userId;
     private Collection<ActorsInMovies> actorsInMoviesById;
     @JsonIgnore
-    private User userByUserId;
+    private User user;
     private Collection<MovieCatalog> movieCatalogsById;
     @JsonIgnore
     private Collection<MovieRental> movieRentalsById;
@@ -147,7 +146,7 @@ public class Movie {
         return Objects.hash(id, title, year, description, rate, registeringUser, updatingUser, deleted, userId);
     }
 
-    @OneToMany(mappedBy = "movieByMovieId")
+    @OneToMany(mappedBy = "movie",cascade = CascadeType.ALL)
     public Collection<ActorsInMovies> getActorsInMoviesById() {
         return actorsInMoviesById;
     }
@@ -156,17 +155,17 @@ public class Movie {
         this.actorsInMoviesById = actorsInMoviesById;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    public User getUserByUserId() {
-        return userByUserId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserByUserId(User userByUserId) {
-        this.userByUserId = userByUserId;
+    public void setUser(User userByUserId) {
+        this.user = userByUserId;
     }
 
-    @OneToMany(mappedBy = "movieByMovieId")
+    @OneToMany(mappedBy = "movie",cascade = CascadeType.ALL)
     public Collection<MovieCatalog> getMovieCatalogsById() {
         return movieCatalogsById;
     }
@@ -175,7 +174,7 @@ public class Movie {
         this.movieCatalogsById = movieCatalogsById;
     }
 
-    @OneToMany(mappedBy = "movieByMovieId")
+    @OneToMany(mappedBy = "movie",cascade = CascadeType.ALL)
     public Collection<MovieRental> getMovieRentalsById() {
         return movieRentalsById;
     }
